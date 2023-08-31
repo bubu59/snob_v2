@@ -12,6 +12,6 @@ export const sidebarLinks = [
     {
         imgUrl: '/medal.svg',
         label: "Leaderboard",
-        route: "/explore"
+        route: "/leaderboard"
     },
 ];
