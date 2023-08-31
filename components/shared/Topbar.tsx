@@ -7,8 +7,11 @@ import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import Button from "./Button";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import Searchbar from "../Searchbar";
+import { useRouter } from "next/navigation";
 
 const Topbar = () => {
+    const router = useRouter()
+
   return (
     <nav className='topbar justify-between'>
         <Link href='/' className="flex items-center ">
@@ -30,6 +33,7 @@ const Topbar = () => {
             />
             <Button
                 title="Log In"
+                handleClick={() => router.push('/sign-in')}
             />
             <MenuOutlinedIcon
                 className="text-[40px]"

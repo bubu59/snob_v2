@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+.main-container {
+  @apply flex min-h-screen flex-1 
+}
+
 .topbar { 
   @apply flex top-0 w-full items-center px-6 py-3 border-b-2
 }
 
 .leftbar {
-  @apply flex flex-col h-screen w-fit left-0 fixed max-lg:hidden
+  @apply flex flex-col h-screen w-fit mr-10 pr-28 max-lg:hidden
 }
 
 .leftbar_wrapper {
@@ -19,7 +23,7 @@
 }
 
 .bottombar {
-  @apply flex w-full items-center fixed bottom-0 px-6 py-3 border-t-2 lg:hidden
+  @apply flex w-full items-center px-6 py-3 border-t-2 lg:hidden
 }
 
 .bottombar_wrapper {

@@ -1,10 +1,11 @@
-import './globals.css'
+import '../globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import Topbar from '@/components/shared/Topbar'
 import LeftSidebar from '@/components/shared/LeftSidebar'
 import Bottombar from '@/components/shared/Bottombar'
+import { ClerkProvider } from '@clerk/nextjs'
 
 
 
@@ -21,15 +22,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Topbar/>
-        <main className='flex flex-row'>
-          <LeftSidebar/>
-          {children}
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Topbar/>
+          <main className='flex flex-row'>
+            <LeftSidebar/>
+                <section className='main-container'>
+                  <div className='w-full'>
+                    {children}
+                  </div>
+                </section>
+          </main>
           <Bottombar/>
-        </main>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
