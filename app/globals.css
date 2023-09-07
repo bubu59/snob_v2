@@ -33,3 +33,14 @@
 .bottombar_link {
   @apply flex flex-col items-center justify-center gap-1
 }
+
+.banner {
+	background: linear-gradient(
+		to right,
+		#6572ED, #B069F6
+	);
+}
+
+.banner_social_icons {
+  @apply flex items-center justify-center relative h-[32px] w-[32px] rounded-full bg-white
+}

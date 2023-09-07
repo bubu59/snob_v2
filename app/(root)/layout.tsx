@@ -6,6 +6,7 @@ import Topbar from '@/components/shared/Topbar'
 import LeftSidebar from '@/components/shared/LeftSidebar'
 import Bottombar from '@/components/shared/Bottombar'
 import { ClerkProvider } from '@clerk/nextjs'
+import Navbar from '@/components/root/Navbar'
 
 
 
@@ -25,7 +26,7 @@ export default function RootLayout({
     <ClerkProvider>
         <html lang="en">
         <body className={inter.className}>
-            <Topbar/>
+            <Navbar/>
             <main className='flex flex-row'>
             <LeftSidebar/>
                 <section className='main-container'>
