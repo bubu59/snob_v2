@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .main-container {
-  @apply flex min-h-screen flex-1 
+  @apply flex min-h-screen flex-1
+}
+
+.container {
+  @apply flex w-full min-h-screen justify-center items-center
 }
 
 .topbar { 
@@ -43,4 +47,21 @@
 
 .banner_social_icons {
   @apply flex items-center justify-center relative h-[32px] w-[32px] rounded-full bg-white
+}
+
+/* Account Profile  */
+.account-form_image-label {
+  @apply flex h-24 w-24 items-center justify-center rounded-full ;
+}
+
+.account-form_input {
+  @apply border border-black  ;
+}
+
+.account-form_image-input {
+  @apply cursor-pointer border-none bg-transparent outline-none text-blue-500;
+}
+
+.main-container {
+  @apply flex flex-col w-full ;
 }
