@@ -37,7 +37,7 @@ const page = async () => {
       <h1 className='text-3xl md:text-4xl lg:text-5xl'>Onboarding</h1>
       <p className='mt-3'>Complete your profile below</p>
 
-      <section className='mt-9 p-10'>
+      <section className='mt-5 p-10'>
         <AccountProfile
           user={userData}
           btnTitle=''
