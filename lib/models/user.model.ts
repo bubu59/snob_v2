@@ -34,7 +34,10 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String
-    }
+    },
+    genres: [
+        {type: String}
+    ]
 })
 
 const User = mongoose.models.User || mongoose.model("User", userSchema)

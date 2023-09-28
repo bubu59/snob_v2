@@ -21,7 +21,7 @@ const page = async () => {
 
   const userData ={
     id: user?.id,
-    objectId: userInfo?._id,
+    objectId: userInfo?._id || "",
     username: userInfo ? userInfo?.username : user?.username,
     name: userInfo ? userInfo?.name : user?.firstName || "",
     bio: userInfo ? userInfo?.bio : "",
@@ -30,7 +30,8 @@ const page = async () => {
     soundCloudLink: userInfo ? userInfo?.soundCloudLink : "",
     appleMusicLink: userInfo ? userInfo?.appleMusicLink : "",
     youtubeLink: userInfo ? userInfo?.appleMusicLink : "",
-    role: userInfo ? userInfo?.role : ""
+    role: userInfo ? userInfo?.role : "",
+    genres: userInfo ? userInfo?.genres : [""]
   }
   return (
     <div className='flex flex-col mx-auto max-w-3xl justify-start px-10 py-20'>

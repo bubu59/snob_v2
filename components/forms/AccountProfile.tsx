@@ -28,6 +28,9 @@ import { ChangeEvent, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { UserValidation } from "@/lib/validations/user"
 import { checkboxItems } from "@/constants"
+import { useUploadThing } from "@/lib/uploadThing"
+import { isBase64Image } from "@/lib/utils"
+import { updateUser } from "@/lib/actions/user.action"
 
 interface Props {
     user : {
@@ -42,11 +45,17 @@ interface Props {
         appleMusicLink: string,
         youtubeLink: string,
         role: string,
+        genres: string[]
     }
     btnTitle: string
 }
 
 const AccountProfile = ({user, btnTitle} : Props) => {
+    const [files, setFiles] = useState<File[]>([])
+    const { startUpload } = useUploadThing("media")
+    const router = useRouter()
+    const pathname = usePathname()
+
     const form = useForm({
         resolver: zodResolver(UserValidation),
         defaultValues: {
@@ -59,16 +68,57 @@ const AccountProfile = ({user, btnTitle} : Props) => {
             appleMusicLink: user?.appleMusicLink || "" ,
             youtubeLink: user?.youtubeLink || "" ,
             role: user?.role || "",
-            items: [""],
+            genres: user?.genres || [""],
         }
     })
 
     const handleImage = (e: ChangeEvent<HTMLInputElement>, fieldChange: (value:string) => void) => {
         e.preventDefault()
+
+        const fileReader = new FileReader()
+
+        if(e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0]
+
+            setFiles(Array.from(e.target.files))
+
+            if(!file.type.includes('image')) return
+
+            fileReader.onload = async (event) => {
+                const imageDataUrl = event.target?.result?.toString() || ""
+
+                fieldChange(imageDataUrl)
+            }
+        }
     }
 
     const onSubmit = async(values: z.infer<typeof UserValidation>) => {
-        console.log("form ===>", values.role)
+        const blob = values.profile_photo
+
+        const hasImageChanged = isBase64Image(blob)
+
+        if(hasImageChanged) {
+            const imgRes = await startUpload(files)
+
+            if(imgRes && imgRes[0].url) {
+                values.profile_photo = imgRes[0].url
+            }
+        }
+
+        await updateUser({
+            userId: user.id,
+            username: values.username,
+            name: values.name,
+            bio: values.bio,
+            image: values.profile_photo,
+            spotifyLink: values.spotifyLink,
+            soundCloudLink: values.soundCloudLink,
+            appleMusicLink: values.appleMusicLink,
+            youtubeLink: values.youtubeLink,
+            role: values.role,
+            genres: values.genres,
+            path: pathname
+        })
     }
 
   return (
@@ -280,7 +330,7 @@ const AccountProfile = ({user, btnTitle} : Props) => {
 
             <FormField
                 control={form.control}
-                name="items"
+                name="genres"
                 render={() => (
                     <FormItem>
                     <div className="mb-4">
@@ -293,7 +343,7 @@ const AccountProfile = ({user, btnTitle} : Props) => {
                         <FormField
                         key={item.id}
                         control={form.control}
-                        name="items"
+                        name="genres"
                         render={({ field }) => {
                             return (
                             <FormItem
